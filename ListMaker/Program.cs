@@ -10,6 +10,11 @@ namespace ListMaker
     {
         static void Main(string[] args)
         {
+            ShoppingList sList = new ShoppingList();
+
+            sList.AddToList("Goodie Bar");
+            sList.AddToList("Mook");
+
         }
     }
 }
