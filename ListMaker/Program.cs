@@ -15,6 +15,8 @@ namespace ListMaker
             sList.AddToList("Goodie Bar");
             sList.AddToList("Mook");
 
+            sList.PrintList();
+
         }
     }
 }

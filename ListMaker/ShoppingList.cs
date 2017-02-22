@@ -14,6 +14,16 @@ namespace ListMaker
             shoppingList.Add(listItem);
         }
 
+        public void PrintList()
+        {
+            for (int i = 0; i < shoppingList.Count; i++)
+            
+            {
+                int listNum = i + 1; // i++ iterated the int, but i + 1 did not.
+                System.Console.WriteLine($"{listNum}: {shoppingList[i]}");
+            }
+        }
+
         List<string> shoppingList = new List<string>();
     }
 }
