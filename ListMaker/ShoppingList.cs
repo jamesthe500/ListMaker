@@ -2,7 +2,7 @@
 
 namespace ListMaker
 {
-    class ShoppingList
+    public class ShoppingList
     {
         public ShoppingList() // this is a custom constructor that makes a new instance of list w/every instance of Shopping list
         {
@@ -14,7 +14,7 @@ namespace ListMaker
             shoppingList.Add(listItem);
         }
 
-        public void PrintList()
+        public int PrintList()
         {
             for (int i = 0; i < shoppingList.Count; i++)
             
@@ -22,6 +22,8 @@ namespace ListMaker
                 int listNum = i + 1; // i++ iterated the int, but i + 1 did not.
                 System.Console.WriteLine($"{listNum}: {shoppingList[i]}");
             }
+
+            return shoppingList.Count;
         }
 
         List<string> shoppingList = new List<string>();
