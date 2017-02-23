@@ -10,11 +10,12 @@ namespace ListMaker
     {
         public static void Main(string[] args)
         {
+            DecisionResult choice = new DecisionResult();
+
             ShoppingList sList = new ShoppingList();
+            sList.AddToList();
 
-            sList.AddToList("Goodie Bar");
-            sList.AddToList("Mook");
-
+            
             sList.PrintList();
 
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ListMaker
 {
@@ -9,10 +10,24 @@ namespace ListMaker
             shoppingList = new List<string>();
         }
 
-        public void AddToList(string listItem)
+        public void AddToList()
+        { 
+            try
+            {
+                Console.WriteLine("Add an item to the list.");
+                shoppingList.Add(Console.ReadLine());
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public void AddToList(string listItem) // this overload allows the application to make additions to the list.
         {
             shoppingList.Add(listItem);
         }
+
 
         public int PrintList()
         {
