@@ -11,6 +11,7 @@ namespace ListMaker
         public static void Main(string[] args)
         {
             DecisionResult choice = new DecisionResult();
+            choice.Ask();
 
             ShoppingList sList = new ShoppingList();
             sList.AddToList();
