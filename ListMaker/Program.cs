@@ -10,15 +10,32 @@ namespace ListMaker
     {
         public static void Main(string[] args)
         {
-            DecisionResult choice = new DecisionResult();
-            choice.Ask();
+            DecisionResult choosing = new DecisionResult();
+            var choice = choosing.Ask();
+
+            // Console.WriteLine($"You said {choice}"); // comes out as string value.
 
             ShoppingList sList = new ShoppingList();
-            sList.AddToList();
 
-            
-            sList.PrintList();
+            while(choice != DecisionResult.DecisionCode.Exit)
+            {
+                switch (choice)
+                {
+                    case DecisionResult.DecisionCode.Add:
+                        sList.AddToList();
+                        sList.PrintList();
+                        Console.WriteLine("");
+                        choice = choosing.Ask();
+                        break;
+                    case DecisionResult.DecisionCode.Subtract:
+                        Console.WriteLine("Feature coming soon!");
+                        Console.WriteLine("");
+                        choice = choosing.Ask();
+                        break;
+                }
+            }
 
+           
         }
     }
 }

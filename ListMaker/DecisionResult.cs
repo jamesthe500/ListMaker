@@ -38,6 +38,7 @@ namespace ListMaker
                         break;
                 }
 	        }
+            return DecisionCode.Add; // This line prevents a compile error, though it should never be reached.               
         }
     }
 }
