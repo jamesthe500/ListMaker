@@ -20,7 +20,7 @@ namespace ListMaker
         bool decided = false;
             while (!decided)
 	        {
-                Console.WriteLine("Add, subtract, or exit?");
+                Console.WriteLine("Add (+), subtract (-), or exit (^)?");
                 string answer = Console.ReadLine().ToLower();
                 switch (answer)
                 {
@@ -31,6 +31,15 @@ namespace ListMaker
                         decided = true;
                         return DecisionCode.Subtract;
                     case "exit":
+                        decided = true;
+                        return DecisionCode.Exit;
+                    case "+":
+                        decided = true;
+                        return DecisionCode.Add;
+                    case "-":
+                        decided = true;
+                        return DecisionCode.Subtract;
+                    case "^":
                         decided = true;
                         return DecisionCode.Exit;
                     default:
