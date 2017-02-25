@@ -23,12 +23,15 @@ namespace ListMaker
                 {
                     case DecisionResult.DecisionCode.Add:
                         sList.AddToList();
+                        Console.WriteLine("");
                         sList.PrintList();
                         Console.WriteLine("");
                         choice = choosing.Ask();
                         break;
                     case DecisionResult.DecisionCode.Subtract:
-                        Console.WriteLine("Feature coming soon!");
+                        sList.RemoveFromList();
+                        Console.WriteLine("");
+                        sList.PrintList();
                         Console.WriteLine("");
                         choice = choosing.Ask();
                         break;

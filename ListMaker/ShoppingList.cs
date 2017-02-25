@@ -14,6 +14,7 @@ namespace ListMaker
         { 
             try
             {
+                Console.WriteLine("");
                 Console.WriteLine("Add an item to the list.");
                 shoppingList.Add(Console.ReadLine());
             }
@@ -26,6 +27,37 @@ namespace ListMaker
         public void AddToList(string listItem) // this overload allows the application to make additions to the list.
         {
             shoppingList.Add(listItem);
+        }
+
+        public void RemoveFromList()
+        {
+            int itemNum = 10000;
+            Console.WriteLine("");
+            Console.WriteLine("Which number would you like removed?");
+            try
+            {
+                itemNum = Convert.ToInt32(Console.ReadLine());
+                itemNum--;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Please choose a number.");
+                return;
+            }
+
+            try
+            {
+                shoppingList.RemoveAt(itemNum);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Please choose a number from the list.");
+                return;
+
+            }
+            
         }
 
 
