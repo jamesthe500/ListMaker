@@ -63,14 +63,20 @@ namespace ListMaker
 
         public int PrintList()
         {
+            //Console.WriteLine(shoppingList.Name);
             for (int i = 0; i < shoppingList.Count; i++)
-            
+
             {
                 int listNum = i + 1; // i++ iterated the int, but i + 1 did not.
                 System.Console.WriteLine($"{listNum}: {shoppingList[i]}");
             }
 
             return shoppingList.Count;
+        }        
+
+        public string Name
+        {
+            get; set;
         }
 
         List<string> shoppingList = new List<string>();

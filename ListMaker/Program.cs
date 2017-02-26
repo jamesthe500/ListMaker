@@ -10,12 +10,18 @@ namespace ListMaker
     {
         public static void Main(string[] args)
         {
+            ShoppingList sList = new ShoppingList();
+            Console.WriteLine("Name your shopping list.");
+            sList.Name = Console.ReadLine();
+
+            
+
             DecisionResult choosing = new DecisionResult();
             var choice = choosing.Ask();
 
             // Console.WriteLine($"You said {choice}"); // comes out as string value.
 
-            ShoppingList sList = new ShoppingList();
+            
 
             while(choice != DecisionResult.DecisionCode.Exit)
             {
@@ -24,6 +30,7 @@ namespace ListMaker
                     case DecisionResult.DecisionCode.Add:
                         sList.AddToList();
                         Console.WriteLine("");
+                        Console.WriteLine(sList.Name);
                         sList.PrintList();
                         Console.WriteLine("");
                         choice = choosing.Ask();
@@ -31,6 +38,7 @@ namespace ListMaker
                     case DecisionResult.DecisionCode.Subtract:
                         sList.RemoveFromList();
                         Console.WriteLine("");
+                        Console.WriteLine(sList.Name); // Why won't it work to call this in the .PrintList() method?
                         sList.PrintList();
                         Console.WriteLine("");
                         choice = choosing.Ask();
