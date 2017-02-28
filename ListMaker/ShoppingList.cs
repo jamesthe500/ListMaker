@@ -81,14 +81,16 @@ namespace ListMaker
                 return _name; // This is where you could always convert the new property ToLower
             }
             set
-            {
-                if(_name != value)
-                {
-                    NameChanged(_name, value);
-                }
+            { 
 
                 if (!String.IsNullOrEmpty(value)) // value is the implicit value that is passed to a setter.
                 {
+                    NameChangedEventArgs args = new NameChangedEventArgs();
+                    args.ExistingName = _name;
+                    args.NewName = value;
+
+                    NameChanged(this, args);
+
                     _name = value;
                 } else
                 {
@@ -96,7 +98,8 @@ namespace ListMaker
                 }
             }
         }
-        public NameChangedDelegate NameChanged; // a public member of the delegate type is invoked so other parts of the code can pass assign it code that needs to be invoked elsewhere
+        public event NameChangedDelegate NameChanged; // a public member of the delegate type is invoked so other parts of the code can pass assign it code that needs to be invoked elsewhere
+        // changing it to an event precents assignments, which prevents wiping out subscribers. it needs to be left of a "+=" or "-="
 
         public string _name; // if you have a property that does stuff, you can't use the auto implement option,
         // so you have to make a field to hold the value outside of the property. convention is for "_" at the beginning of private fields.

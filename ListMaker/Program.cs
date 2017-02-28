@@ -11,7 +11,11 @@ namespace ListMaker
         public static void Main(string[] args)
         {
             ShoppingList sList = new ShoppingList();
-            sList.NameChanged = new NameChangedDelegate(OnNameChanged); // Whenever somone invokes this delegate instance, call OnNameChanged
+
+            //sList.NameChanged += new NameChangedDelegate(OnNameChanged); // Whenever somone invokes this delegate instance, call OnNameChanged
+            // code below is equivalent to that above. C# does the above behind the scenes.
+            sList.NameChanged += OnNameChanged;
+
             sList._name = "Default list";
             Console.WriteLine("Name your shopping list.");
             sList.Name = Console.ReadLine();
@@ -51,9 +55,9 @@ namespace ListMaker
            
         }
 
-        static void OnNameChanged(string existingName, string newName)
+        static void OnNameChanged(object sender, NameChangedEventArgs args)
         {
-            Console.WriteLine($"Shopping list name changing from \"{existingName}\" to \"{newName}\"");
+            Console.WriteLine($"Shopping list name changing from \"{args.ExistingName}\" to \"{args.NewName}\"");
         }
     }
 }
