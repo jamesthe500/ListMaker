@@ -16,7 +16,7 @@ namespace ListMaker
             // code below is equivalent to that above. C# does the above behind the scenes.
             sList.NameChanged += OnNameChanged;
 
-            sList._name = "Default list";
+            sList._name = "Default list"; // sets the field, rather than the property which doesn't fire the event.
             Console.WriteLine("Name your shopping list.");
             sList.Name = Console.ReadLine();
 

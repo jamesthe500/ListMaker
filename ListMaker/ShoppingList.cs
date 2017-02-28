@@ -59,6 +59,11 @@ namespace ListMaker
             }
             
         }
+        public void RemoveFromList(int itemNumber)
+        {
+            shoppingList.RemoveAt(itemNumber);
+        }
+
 
 
         public int PrintList()
