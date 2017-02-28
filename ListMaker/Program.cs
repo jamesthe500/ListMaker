@@ -11,6 +11,8 @@ namespace ListMaker
         public static void Main(string[] args)
         {
             ShoppingList sList = new ShoppingList();
+            sList.NameChanged = new NameChangedDelegate(OnNameChanged); // Whenever somone invokes this delegate instance, call OnNameChanged
+            sList._name = "Default list";
             Console.WriteLine("Name your shopping list.");
             sList.Name = Console.ReadLine();
 
@@ -47,6 +49,11 @@ namespace ListMaker
             }
 
            
+        }
+
+        static void OnNameChanged(string existingName, string newName)
+        {
+            Console.WriteLine($"Shopping list name changing from \"{existingName}\" to \"{newName}\"");
         }
     }
 }
