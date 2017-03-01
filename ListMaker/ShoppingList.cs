@@ -86,9 +86,13 @@ namespace ListMaker
                 return _name; // This is where you could always convert the new property ToLower
             }
             set
-            { 
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Name cannot be null or empty");
+                }
 
-                if (!String.IsNullOrEmpty(value)) // value is the implicit value that is passed to a setter.
+                if (_name != value)
                 {
                     NameChangedEventArgs args = new NameChangedEventArgs();
                     args.ExistingName = _name;
@@ -97,10 +101,7 @@ namespace ListMaker
                     NameChanged(this, args);
 
                     _name = value;
-                } else
-                {
-                    Console.WriteLine("Please choose a name.");
-                }
+                } 
             }
         }
         public event NameChangedDelegate NameChanged; // a public member of the delegate type is invoked so other parts of the code can pass assign it code that needs to be invoked elsewhere

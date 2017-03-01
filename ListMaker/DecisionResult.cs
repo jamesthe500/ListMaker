@@ -4,12 +4,6 @@ namespace ListMaker
 {
     internal class DecisionResult
     {
-        // while a decision isn't made
-        // cw, c-read
-        // test it with cases
-        // make an event out of it or return to the top.
-        
-
         internal enum DecisionCode // access with - DecisionCode.Add
         {
             Add, Subtract, Exit
