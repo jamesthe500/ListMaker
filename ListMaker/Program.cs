@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,16 +28,16 @@ namespace ListMaker
             {
                 Console.WriteLine(ex.Message);
             }
-            
+
 
             DecisionResult choosing = new DecisionResult();
             var choice = choosing.Ask();
 
             // Console.WriteLine($"You said {choice}"); // comes out as string value.
 
-            
+            // Put the output in a streamwriter var called outputFile
 
-            while(choice != DecisionResult.DecisionCode.Exit)
+            while (choice != DecisionResult.DecisionCode.Exit)
             {
                 switch (choice)
                 {
@@ -44,7 +45,7 @@ namespace ListMaker
                         sList.AddToList();
                         Console.WriteLine("");
                         Console.WriteLine(sList.Name);
-                        sList.PrintList();
+                        sList.PrintList(Console.Out);
                         Console.WriteLine("");
                         choice = choosing.Ask();
                         break;
@@ -52,14 +53,19 @@ namespace ListMaker
                         sList.RemoveFromList();
                         Console.WriteLine("");
                         Console.WriteLine(sList.Name); // Why won't it work to call this in the .PrintList() method?
-                        sList.PrintList();
+                        sList.PrintList(Console.Out);
                         Console.WriteLine("");
                         choice = choosing.Ask();
                         break;
                 }
             }
+            using (StreamWriter outputFile = File.CreateText("latestList.txt"))
+            {
+                sList.PrintList(outputFile);
+            }
+            // not using because of the using statuement above.
+            //outputFile.Close(); // closes the stream, allowing it to actually write.
 
-           
         }
 
         static void OnNameChanged(object sender, NameChangedEventArgs args)

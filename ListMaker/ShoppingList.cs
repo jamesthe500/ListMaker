@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ListMaker
 {
@@ -66,14 +67,13 @@ namespace ListMaker
 
 
 
-        public int PrintList()
+        public int PrintList(TextWriter destination)
         {
             //Console.WriteLine(shoppingList.Name);
             for (int i = 0; i < shoppingList.Count; i++)
-
             {
                 int listNum = i + 1; // i++ iterated the int, but i + 1 did not.
-                System.Console.WriteLine($"{listNum}: {shoppingList[i]}");
+                destination.WriteLine($"{listNum}: {shoppingList[i]}");
             }
 
             return shoppingList.Count;
