@@ -70,6 +70,7 @@ namespace ListMaker
         public int PrintList(TextWriter destination)
         {
             //Console.WriteLine(shoppingList.Name);
+            
             for (int i = 0; i < shoppingList.Count; i++)
             {
                 int listNum = i + 1; // i++ iterated the int, but i + 1 did not.
@@ -77,7 +78,18 @@ namespace ListMaker
             }
 
             return shoppingList.Count;
-        }        
+        }
+
+        public int PrintList(TextWriter destination, List<string> listContents)
+        {
+            for (int i = 0; i < listContents.Count; i++)
+            {
+                int listNum = i + 1; // i++ iterated the int, but i + 1 did not.
+                destination.WriteLine($"{listNum}: {listContents[i]}");
+            }
+
+            return shoppingList.Count;
+        }
 
         public string Name
         {
@@ -108,8 +120,21 @@ namespace ListMaker
         // changing it to an event precents assignments, which prevents wiping out subscribers. it needs to be left of a "+=" or "-="
 
         public string _name; // if you have a property that does stuff, you can't use the auto implement option,
-        // so you have to make a field to hold the value outside of the property. convention is for "_" at the beginning of private fields.
+                             // so you have to make a field to hold the value outside of the property. convention is for "_" at the beginning of private fields.
+
+        public void ExitNow() // 2. This is what happens when the event method is called
+        {
+            ExitingEventArgs args = new ExitingEventArgs();
+            args.listName = _name;
+            args.listContents = shoppingList;
+            ExitingProgram(this, args);
+        }
+
+        public event ExitingEventDelegate ExitingProgram;
+
+
 
         List<string> shoppingList = new List<string>();
+        
     }
 }

@@ -16,6 +16,7 @@ namespace ListMaker
             //sList.NameChanged += new NameChangedDelegate(OnNameChanged); // Whenever somone invokes this delegate instance, call OnNameChanged
             // code below is equivalent to that above. C# does the above behind the scenes.
             sList.NameChanged += OnNameChanged;
+            sList.ExitingProgram += OnExit; // Pre-requisite, adds the subscriber to ExitingProgram
 
             sList._name = "Default list"; // sets the field, rather than the property which doesn't fire the event.
 
@@ -59,12 +60,22 @@ namespace ListMaker
                         break;
                 }
             }
-            using (StreamWriter outputFile = File.CreateText("latestList.txt"))
-            {
-                sList.PrintList(outputFile);
-            }
+            sList.ExitNow(); // 1. This is the trigger of the event, goto ShoppingList
+
             // not using because of the using statuement above.
             //outputFile.Close(); // closes the stream, allowing it to actually write.
+
+        }
+
+        static void OnExit(object sender, ExitingEventArgs args) // here's where the args are packaged. not su
+        {
+            ShoppingList shopList = new ShoppingList();
+            
+
+            using (StreamWriter outputFile = File.CreateText("latestList.txt"))
+            {
+                shopList.PrintList(outputFile, args.listContents); // had to call this here, it was out of scope over in Program
+            }
 
         }
 
