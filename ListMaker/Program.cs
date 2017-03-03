@@ -70,11 +70,13 @@ namespace ListMaker
         static void OnExit(object sender, ExitingEventArgs args) // here's where the args are packaged. not su
         {
             ShoppingList shopList = new ShoppingList();
-            
 
-            using (StreamWriter outputFile = File.CreateText("latestList.txt"))
+            //DirectoryInfo directoryForSaving = Directory.CreateDirectory(@"c:\Created_Lists\");
+
+            using (StreamWriter outputFile = File.CreateText(@"c:\Created_Lists\" + args.listName + "-List.txt"))
+//            using (StreamWriter outputFile = File.CreateText(directoryForSaving + args.listName + "-List.txt"))
             {
-                shopList.PrintList(outputFile, args.listContents); // had to call this here, it was out of scope over in Program
+                shopList.PrintList(outputFile, args.listContents); // Some troube calling as the list itself was hard to access
             }
 
         }
