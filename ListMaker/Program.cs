@@ -71,14 +71,67 @@ namespace ListMaker
         {
             ShoppingList shopList = new ShoppingList();
 
-            //DirectoryInfo directoryForSaving = Directory.CreateDirectory(@"c:\Created_Lists\");
-
-            using (StreamWriter outputFile = File.CreateText(@"c:\Created_Lists\" + args.listName + "-List.txt"))
-//            using (StreamWriter outputFile = File.CreateText(directoryForSaving + args.listName + "-List.txt"))
+            bool success = false;
+            int tries = 3;
+            while (!success && tries > 0)
             {
-                shopList.PrintList(outputFile, args.listContents); // Some troube calling as the list itself was hard to access
-            }
+                try
+                {
+                    using (StreamWriter outputFile = File.CreateText(@"c:\Created_Lists\" + args.listName + "-List.txt"))
+                    {
+                        shopList.PrintList(outputFile, args.listContents); // Some troube calling as the list itself was hard to access
+                    }
+                    success = true;
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    Console.WriteLine($"The file wasn't saved. There may be illegal characters in your list name \"{args.listName}\". Try another (y/n)?");
+                    string userResponse = Console.ReadLine().ToLower();
+                    if (userResponse == "y" || userResponse == "yes")
+                    {
+                        Console.WriteLine("Enter the new name.");
+                        args.listName = Console.ReadLine();
+                    }
+                    tries--;
+                    if (tries <= 0)
+                    {
+                        Console.WriteLine("This didn't work. Sorry, closing without saving.");
+                    }
 
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine($"The file wasn't saved. There were illegal characters in your list name \"{args.listName}\". Try another (y/n)?");
+                    string userResponse = Console.ReadLine().ToLower();
+                    if (userResponse == "y" || userResponse == "yes")
+                    {
+                        Console.WriteLine("Enter the new name.");
+                        args.listName = Console.ReadLine();
+                    }
+                    tries--;
+                    if (tries <= 0)
+                    {
+                        Console.WriteLine("This didn't work. Sorry, closing without saving.");
+                    }
+
+                }
+                catch (NotSupportedException)
+                {
+                    Console.WriteLine($"The file wasn't saved. There may be illegal characters in your list name, probably at the beginning. \"{args.listName}\". Try another (y/n)?");
+                    string userResponse = Console.ReadLine().ToLower();
+                    if (userResponse == "y" || userResponse == "yes")
+                    {
+                        Console.WriteLine("Enter the new name.");
+                        args.listName = Console.ReadLine();
+                    }
+                    tries--;
+                    if (tries <= 0)
+                    {
+                        Console.WriteLine("This didn't work. Sorry, closing without saving.");
+                    }
+
+                }
+            }
         }
 
         static void OnNameChanged(object sender, NameChangedEventArgs args)
