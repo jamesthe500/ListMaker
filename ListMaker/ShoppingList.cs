@@ -91,6 +91,19 @@ namespace ListMaker
             return shoppingList.Count;
         }
 
+        public int CSVList(TextWriter destination, List<string> listContents)
+        {
+
+
+            for (int i = 0; i < listContents.Count; i++)
+            {
+                int listNum = i + 1; // i++ iterated the int, but i + 1 did not.
+                destination.WriteLine($"{listNum}, {listContents[i]},");
+            }
+
+            return shoppingList.Count;
+        }
+
         public string Name
         {
             get

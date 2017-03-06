@@ -81,6 +81,11 @@ namespace ListMaker
                     {
                         shopList.PrintList(outputFile, args.listContents); // Some troube calling as the list itself was hard to access
                     }
+
+                    using (StreamWriter outputFile = File.CreateText(@"c:\Created_Lists\" + args.listName + "-List.csv"))
+                    {
+                        shopList.CSVList(outputFile, args.listContents);
+                    }
                     success = true;
                 }
                 catch (DirectoryNotFoundException)
