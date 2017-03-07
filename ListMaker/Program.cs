@@ -11,10 +11,25 @@ namespace ListMaker
     {
         public static void Main(string[] args)
         {
+            OpenAList();
             ShoppingList sList = new ShoppingList();
 
             GetListName(sList);
             PromtLoop(sList);
+        }
+
+        private static void OpenAList()
+        {
+            Console.WriteLine("Open (O) a list or create a new (N) one?");
+            string response = Console.ReadLine().ToLower();
+            switch (response)
+            {
+                case "open":
+                    string[] availableFiles = Directory.GetFiles(@"c:\Created_Lists\");
+                    // TODO present the available .csvs as an ordered list, prompt user to choose one, load that csv as the list to be used.
+                    Console.WriteLine("opening");
+                    break;
+            }
         }
 
         private static void PromtLoop(ShoppingList sList)
