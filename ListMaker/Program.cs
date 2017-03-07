@@ -13,30 +13,16 @@ namespace ListMaker
         {
             ShoppingList sList = new ShoppingList();
 
-            //sList.NameChanged += new NameChangedDelegate(OnNameChanged); // Whenever somone invokes this delegate instance, call OnNameChanged
-            // code below is equivalent to that above. C# does the above behind the scenes.
-            sList.NameChanged += OnNameChanged;
+            GetListName(sList);
+            PromtLoop(sList);
+        }
+
+        private static void PromtLoop(ShoppingList sList)
+        {
             sList.ExitingProgram += OnExit; // Pre-requisite, adds the subscriber to ExitingProgram
-
-            sList._name = "Default list"; // sets the field, rather than the property which doesn't fire the event.
-
-            try
-            {
-                Console.WriteLine("Name your shopping list.");
-                sList.Name = Console.ReadLine();
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
 
             DecisionResult choosing = new DecisionResult();
             var choice = choosing.Ask();
-
-            // Console.WriteLine($"You said {choice}"); // comes out as string value.
-
-            // Put the output in a streamwriter var called outputFile
 
             while (choice != DecisionResult.DecisionCode.Exit)
             {
@@ -61,10 +47,25 @@ namespace ListMaker
                 }
             }
             sList.ExitNow(); // 1. This is the trigger of the event, goto ShoppingList
+        }
 
-            // not using because of the using statuement above.
-            //outputFile.Close(); // closes the stream, allowing it to actually write.
+        private static void GetListName(ShoppingList sList)
+        {
+            //sList.NameChanged += new NameChangedDelegate(OnNameChanged); // Whenever somone invokes this delegate instance, call OnNameChanged
+            // code below is equivalent to that above. C# does the above behind the scenes.
+            sList.NameChanged += OnNameChanged;
 
+            sList._name = "Default list"; // sets the field, rather than the property which doesn't fire the event.
+
+            try
+            {
+                Console.WriteLine("Name your shopping list.");
+                sList.Name = Console.ReadLine();
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         static void OnExit(object sender, ExitingEventArgs args) // here's where the args are packaged. not su
