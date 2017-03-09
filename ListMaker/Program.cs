@@ -27,7 +27,23 @@ namespace ListMaker
                 case "open":
                     string[] availableFiles = Directory.GetFiles(@"c:\Created_Lists\");
                     // TODO present the available .csvs as an ordered list, prompt user to choose one, load that csv as the list to be used.
-                    Console.WriteLine("opening");
+                    foreach (var listFile in availableFiles)
+                    {
+                        bool isCSV = listFile.ToLower().EndsWith(".csv");
+                        if (isCSV)
+                        {
+                            int first = listFile.LastIndexOf(@"\");
+                            int last = listFile.ToLower().IndexOf(".csv");
+                            
+                            string justCSVFile = listFile.Substring(first, last - first);
+
+                            Console.WriteLine(justCSVFile);
+                        }
+                    }
+
+                    Console.WriteLine("");
+                    Console.WriteLine("Which one?");
+                    string fileChoice = Console.ReadLine();
                     break;
             }
         }
