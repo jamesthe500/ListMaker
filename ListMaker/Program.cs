@@ -11,33 +11,40 @@ namespace ListMaker
     {
         public static void Main(string[] args)
         {
-            OpenAList();
+            
             ShoppingList sList = new ShoppingList();
+
+            List<string> oldList = OpenAList();
+            sList.importList(oldList);
 
             GetListName(sList);
             PromtLoop(sList);
         }
 
-        private static void OpenAList()
+        private static List<string> OpenAList()
         {
             Console.WriteLine("Open (O) a list or create a new (N) one?");
+            List<string> archiveList = new List<string>();
             string response = Console.ReadLine().ToLower();
             switch (response)
             {
                 case "open":
-                    openCSVOptions();
-                    break;
+                    archiveList = openCSVOptions();
+                    return archiveList;
                 case "o":
-                    openCSVOptions();
-                    break;
+                    archiveList = openCSVOptions();
+                    return archiveList;
+                default :
+                    return archiveList;
                
             }
         }
 
-        private static void openCSVOptions()
+        private static List<string> openCSVOptions()
         {
+            List<string> archivedList = new List<string>();
             string[] availableFiles = Directory.GetFiles(@"c:\Created_Lists\");
-            // TODO present the available .csvs as an ordered list, prompt user to choose one, load that csv as the list to be used.
+
             foreach (var listFile in availableFiles)
             {
                 bool isCSV = listFile.ToLower().EndsWith(".csv");
@@ -57,11 +64,23 @@ namespace ListMaker
             string fileChoice = Console.ReadLine();
 
             // TODO need to understand this line better.
-            object chosenFile = File.ReadLines(@"c:\Created_Lists\" + fileChoice + ".csv").Select(line => new Item(line)).ToList();
+            //object chosenFile = File.ReadLines(@"c:\Created_Lists\" + fileChoice + ".csv").Select(line => new Item(line)).ToList();
+
+            // TODO NEXT put a try/catch here from null entry (create new/exit?) wrong text entered, others?
+            IEnumerable<string> chosenFile = File.ReadLines(@"c:\Created_Lists\" + fileChoice + ".csv");
+
+            // if a list is loaded, it will find the text in the second cell of each row and add it to the list
+            foreach (var item in chosenFile)
+            {
+                int last = item.LastIndexOf(@",");
+                int first = item.IndexOf(", ") + 2;
+
+                string justItem = item.Substring(first, last - first);
+                archivedList.Add(justItem);
+            }
+            return archivedList;
             
         }
-
-        // todo: (above) got it opening and printing the items within, but how to get those loaded into the sList the program will use?
 
 
         private static void PromtLoop(ShoppingList sList)

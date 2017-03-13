@@ -25,6 +25,12 @@ namespace ListMaker
                 Console.WriteLine(ex.Message);
             }
         }
+
+        internal void importList(List<string> oldList)
+        {
+            shoppingList = oldList;
+        }
+
         public void AddToList(string listItem) // this overload allows the application to make additions to the list.
         {
             shoppingList.Add(listItem);
