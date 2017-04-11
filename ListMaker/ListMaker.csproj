@@ -46,7 +46,6 @@
     <Compile Include="DecisionResult.cs" />
     <Compile Include="ExitingEventArgs.cs" />
     <Compile Include="ExitingEventDelegate.cs" />
-    <Compile Include="Item.cs" />
     <Compile Include="NameChangedDelegate.cs" />
     <Compile Include="NameChangedEventArgs.cs" />
     <Compile Include="Program.cs" />

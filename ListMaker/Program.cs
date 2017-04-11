@@ -57,17 +57,63 @@ namespace ListMaker
 
                     Console.WriteLine(justCSVFile);
                 }
-            }
-
-            Console.WriteLine("");
-            Console.WriteLine("Which one?");
-            string fileChoice = Console.ReadLine();
+            }           
 
             // TODO need to understand this line better.
             //object chosenFile = File.ReadLines(@"c:\Created_Lists\" + fileChoice + ".csv").Select(line => new Item(line)).ToList();
 
             // TODO NEXT put a try/catch here from null entry (create new/exit?) wrong text entered, others?
-            IEnumerable<string> chosenFile = File.ReadLines(@"c:\Created_Lists\" + fileChoice + ".csv");
+            IEnumerable<string> chosenFile = null;
+            int tries = 3;
+            bool success = false;
+            while (!success && tries > 0)
+            {
+                tries--;
+                try
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("Which one?");
+                    string fileChoice = Console.ReadLine();
+                    chosenFile = File.ReadLines(@"c:\Created_Lists\" + fileChoice + ".csv");
+                }
+                catch (NullReferenceException)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("You've got to put something in. Care to try again? <y/n>");
+                    string userResponse = Console.ReadLine().ToLower();
+                    if (userResponse == "y" || userResponse == "yes")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                }
+                catch (FileNotFoundException)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("That wasn't on the list. Care to try again? <y/n>");
+                    string userResponse = Console.ReadLine().ToLower();
+                    if (userResponse == "y" || userResponse == "yes")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                }
+                
+                success = true;
+            }
+
+            if (chosenFile == null)
+            {
+                return archivedList;
+            }
 
             // if a list is loaded, it will find the text in the second cell of each row and add it to the list
             foreach (var item in chosenFile)
